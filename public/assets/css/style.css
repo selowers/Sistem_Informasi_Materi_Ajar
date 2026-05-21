@@ -48,7 +48,7 @@ a {
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 1040;
-  width: var(--sidebar-width);
+  width: 320px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -139,9 +139,11 @@ a {
   padding: 0.78rem 0.9rem;
   border-radius: 8px;
   color: #d1d5db;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.85rem;
   transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .sidebar-nav .nav-link:hover,
@@ -163,6 +165,7 @@ a {
   background: rgba(255, 255, 255, 0.08);
   color: #bfdbfe;
   font-size: 0.76rem;
+  margin-top: 0.15rem;
 }
 
 .sidebar-footer {
@@ -230,6 +233,7 @@ a {
   min-width: 0;
   min-height: 100vh;
   margin-left: var(--sidebar-width);
+  padding-left: 1rem;
   transition: margin-left 0.2s ease;
 }
 
@@ -411,6 +415,23 @@ html[data-theme="dark"] .profile-button .avatar-sm {
 .dashboard-content > .container-fluid {
   padding-top: 1.75rem !important;
   padding-bottom: 1.75rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.table-fit {
+  width: auto !important;
+  table-layout: auto;
+}
+
+.table-fit th.action-column,
+.table-fit td.action-column {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.table-fit td.text-end {
+  padding-right: 0.75rem;
 }
 
 .page-heading,
