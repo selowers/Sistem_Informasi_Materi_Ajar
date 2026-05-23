@@ -22,11 +22,6 @@ class Kelas extends Model
         return $this->hasMany(Santri::class);
     }
 
-    public function kurikulums()
-    {
-        return $this->hasMany(Kurikulum::class);
-    }
-
     public function materis()
     {
         return $this->hasMany(Materi::class);

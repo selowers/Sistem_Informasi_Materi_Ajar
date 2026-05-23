@@ -9,9 +9,22 @@ use Illuminate\Http\Request;
 
 class GuruController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $gurus = Guru::with(['mataPelajaran','user'])->get();
+        $search = trim($request->query('search', ''));
+
+        $gurus = Guru::with(['mataPelajaran','user'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_guru', 'like', "%{$search}%")
+                      ->orWhere('jenis_kelamin', 'like', "%{$search}%")
+                      ->orWhere('tempat_lahir', 'like', "%{$search}%")
+                      ->orWhere('no_hp', 'like', "%{$search}%")
+                      ->orWhereHas('mataPelajaran', function ($query) use ($search) {
+                          $query->where('nama_mapel', 'like', "%{$search}%");
+                      });
+            })
+            ->get();
+
         return view('gurus.index', compact('gurus'));
     }
 

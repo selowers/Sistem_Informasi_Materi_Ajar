@@ -5,7 +5,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SantriController;
-use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\JurnalPembelajaranController;
 use App\Http\Controllers\UserController;
@@ -25,7 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('gurus', GuruController::class);
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
     Route::resource('santris', SantriController::class);
-    Route::resource('kurikulums', KurikulumController::class);
     Route::resource('materis', MateriController::class);
     Route::resource('jurnal_pembelajarans', JurnalPembelajaranController::class);
     Route::resource('users', UserController::class)->except(['show']);

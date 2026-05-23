@@ -8,9 +8,21 @@ use Illuminate\Http\Request;
 
 class SantriController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $santris = Santri::with('kelas')->get();
+        $search = trim($request->query('search', ''));
+
+        $santris = Santri::with('kelas')
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_santri', 'like', "%{$search}%")
+                      ->orWhere('jenis_kelamin', 'like', "%{$search}%")
+                      ->orWhere('nama_orang_tua', 'like', "%{$search}%")
+                      ->orWhereHas('kelas', function ($query) use ($search) {
+                          $query->where('nama_kelas', 'like', "%{$search}%");
+                      });
+            })
+            ->get();
+
         return view('santris.index', compact('santris'));
     }
 

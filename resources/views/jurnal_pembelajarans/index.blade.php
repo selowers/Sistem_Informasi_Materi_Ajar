@@ -55,5 +55,8 @@
         </tbody>
       </table>
     </div>
+    <div class="mt-3">
+      {{ $jurnals->withQueryString()->links() }}
+    </div>
   </div>
 @endsection

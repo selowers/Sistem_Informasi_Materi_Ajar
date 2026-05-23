@@ -15,11 +15,6 @@ class MataPelajaran extends Model
         return $this->hasMany(Guru::class);
     }
 
-    public function kurikulums()
-    {
-        return $this->hasMany(Kurikulum::class);
-    }
-
     public function materis()
     {
         return $this->hasMany(Materi::class);

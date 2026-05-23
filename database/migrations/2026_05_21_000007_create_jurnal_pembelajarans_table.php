@@ -19,7 +19,7 @@ return new class extends Migration
                 $table->date('tanggal_pembelajaran');                  // Tanggal Pembelajaran
                 $table->foreignId('guru_id')                           // Nama Guru (FK)
                       ->constrained('gurus')
-                      ->onDelete('restrict');
+                      ->onDelete('cascade');
                 $table->foreignId('mata_pelajaran_id')                 // Mata Pelajaran (FK)
                       ->constrained('mata_pelajarans')
                       ->onDelete('restrict');

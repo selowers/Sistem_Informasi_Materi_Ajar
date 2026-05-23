@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $this->ensureAdminOnly();
 
-        $users = User::all();
+        $search = trim($request->query('search', ''));
+
+        $users = User::when($search, function ($query) use ($search) {
+                $query->where('nama', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%")
+                      ->orWhere('role', 'like', "%{$search}%")
+                      ->orWhere('status', 'like', "%{$search}%");
+            })
+            ->get();
+
         return view('users.index', compact('users'));
     }
 

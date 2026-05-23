@@ -10,9 +10,27 @@ use Illuminate\Http\Request;
 
 class MateriController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $materis = Materi::with(['mataPelajaran','kelas','guru'])->get();
+        $search = trim($request->query('search', ''));
+
+        $materis = Materi::with(['mataPelajaran','kelas','guru'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('judul_materi', 'like', "%{$search}%")
+                      ->orWhere('file_materi', 'like', "%{$search}%")
+                      ->orWhere('deskripsi', 'like', "%{$search}%")
+                      ->orWhereHas('guru', function ($query) use ($search) {
+                          $query->where('nama_guru', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('mataPelajaran', function ($query) use ($search) {
+                          $query->where('nama_mapel', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('kelas', function ($query) use ($search) {
+                          $query->where('nama_kelas', 'like', "%{$search}%");
+                      });
+            })
+            ->get();
+
         return view('materis.index', compact('materis'));
     }
 

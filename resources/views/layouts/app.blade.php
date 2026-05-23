@@ -38,10 +38,6 @@
           <span class="nav-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
           <span class="nav-text">Mengelola Data Santri</span>
         </a>
-        <a class="nav-link @if(request()->routeIs('kurikulums.*')) active @endif" href="{{ route('kurikulums.index') }}">
-          <span class="nav-icon"><i class="bi bi-journal-text" aria-hidden="true"></i></span>
-          <span class="nav-text">Mengelola Kurikulum</span>
-        </a>
         <a class="nav-link @if(request()->routeIs('materis.*')) active @endif" href="{{ route('materis.index') }}">
           <span class="nav-icon"><i class="bi bi-book" aria-hidden="true"></i></span>
           <span class="nav-text">Mengelola Materi Pembelajaran</span>
@@ -71,8 +67,16 @@
             <span></span>
             <span></span>
           </button>
-          <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
-            <input class="form-control search-input" type="search" placeholder="Search users, orders, reports" aria-label="Search">
+          <form class="d-none d-md-flex ms-3 flex-grow-1" role="search" action="{{ url()->current() }}" method="GET">
+            <div class="input-group w-100">
+              <input class="form-control search-input" type="search" name="search" value="{{ request('search') }}" placeholder="Cari data..." aria-label="Search">
+              @if(request()->routeIs('jurnal_pembelajarans.*'))
+                <input class="form-control ms-2" type="date" name="tanggal" value="{{ request('tanggal') }}" aria-label="Cari tanggal">
+              @endif
+              <button class="btn btn-outline-secondary" type="submit" aria-label="Submit search">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
           </form>
           <div class="navbar-actions ms-auto">
             <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">

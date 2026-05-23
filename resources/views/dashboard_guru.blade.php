@@ -9,23 +9,12 @@
       <div>
         <p class="eyebrow mb-1">Dashboard Guru</p>
         <h1 class="h3 mb-1">Halo, {{ auth()->user()->nama }}</h1>
-        <p class="text-muted mb-0">Lihat data dan kelola materi, kurikulum, serta jurnal pembelajaran.</p>
+        <p class="text-muted mb-0">Lihat data dan kelola materi serta jurnal pembelajaran.</p>
       </div>
     </div>
   </div>
 
   <section class="row g-3 mt-1" aria-label="Dashboard guru metrics">
-    <div class="col-12 col-sm-6 col-xl-3">
-      <article class="metric-card metric-primary">
-        <div class="metric-top">
-          <span class="metric-label">Kurikulum</span>
-          <span class="metric-icon"><i class="bi bi-journal-text" aria-hidden="true"></i></span>
-        </div>
-        <div class="metric-value">{{ $kurikulumCount }}</div>
-        <div class="metric-meta"><span class="text-success">Referensi aktif</span></div>
-      </article>
-    </div>
-
     <div class="col-12 col-sm-6 col-xl-3">
       <article class="metric-card metric-success">
         <div class="metric-top">
@@ -71,17 +60,6 @@
         </div>
         <div class="panel-body">
           <div class="row g-3">
-            <div class="col-12 col-md-4">
-              <a href="{{ route('kurikulums.index') }}" class="card card-link p-4 text-decoration-none">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h3 class="h6 mb-1">Kurikulum</h3>
-                    <p class="mb-0 text-muted">Buat, edit, dan hapus kurikulum.</p>
-                  </div>
-                  <i class="bi bi-journal-text fs-2 text-primary"></i>
-                </div>
-              </a>
-            </div>
             <div class="col-12 col-md-4">
               <a href="{{ route('materis.index') }}" class="card card-link p-4 text-decoration-none">
                 <div class="d-flex align-items-center justify-content-between">

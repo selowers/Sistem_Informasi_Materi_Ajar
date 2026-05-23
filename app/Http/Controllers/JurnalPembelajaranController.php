@@ -10,9 +10,32 @@ use Illuminate\Http\Request;
 
 class JurnalPembelajaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jurnals = JurnalPembelajaran::with(['guru','mataPelajaran','kelas'])->get();
+        $search = trim($request->query('search', ''));
+        $tanggal = trim($request->query('tanggal', ''));
+
+        $jurnals = JurnalPembelajaran::with(['guru','mataPelajaran','kelas'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('materi_disampaikan', 'like', "%{$search}%")
+                      ->orWhere('catatan_pembelajaran', 'like', "%{$search}%")
+                      ->orWhere('kendala_pembelajaran', 'like', "%{$search}%")
+                      ->orWhereHas('guru', function ($query) use ($search) {
+                          $query->where('nama_guru', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('mataPelajaran', function ($query) use ($search) {
+                          $query->where('nama_mapel', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('kelas', function ($query) use ($search) {
+                          $query->where('nama_kelas', 'like', "%{$search}%");
+                      });
+            })
+            ->when($tanggal, function ($query) use ($tanggal) {
+                $query->whereDate('tanggal_pembelajaran', $tanggal);
+            })
+            ->orderByDesc('tanggal_pembelajaran')
+            ->paginate(12);
+
         return view('jurnal_pembelajarans.index', compact('jurnals'));
     }
 
