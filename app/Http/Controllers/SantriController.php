@@ -20,6 +20,7 @@ class SantriController extends Controller
                       ->orWhereHas('kelas', function ($query) use ($search) {
                           $query->where('nama_kelas', 'like', "%{$search}%");
                       });
+                      
             })
             ->get();
 
