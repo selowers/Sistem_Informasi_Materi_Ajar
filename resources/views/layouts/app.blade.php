@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Dashboard') | adminHMD</title>
+  <title>@yield('title', 'Dashboard') | Ponpes Subulussalam</title>
   <link rel="icon" type="image/jpeg" href="{{ asset('assets/logo/logo.jpg') }}">
   <link rel="apple-touch-icon" href="{{ asset('assets/logo/logo.jpg') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -20,7 +20,7 @@
             <img src="{{ asset('assets/logo/logo.jpg') }}" alt="Logo" style="width:32px;height:32px;object-fit:contain;display:block;" />
           </span>
           <span class="brand-copy">
-            <span class="brand-title">adminHMD</span>
+            <span class="brand-title">Ponpes Subulussalam</span>
           </span>
         </a>
       </div>

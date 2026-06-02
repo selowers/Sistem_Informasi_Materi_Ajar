@@ -7,8 +7,8 @@
     <div class="page-heading-copy">
       <span class="page-icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
       <div>
-        <p class="eyebrow mb-1">Overview</p>
-        <h1 class="h3 mb-1">Dashboard {{ auth()->user()->isAdmin() ? 'Admin' : 'Guru' }}</h1>
+        <p class="eyebrow mb-1">Selamat datang</p>
+        <h1 class="h3 mb-1">{{ auth()->user()->display_name }}</h1>
         <p class="text-muted mb-0">Monitor performance, data, dan laporan dari satu workspace.</p>
       </div>
     </div>

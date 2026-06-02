@@ -33,33 +33,26 @@
           @if($files && is_array($files))
             <div class="mt-3">
               <label class="form-label">File yang Sudah Diupload:</label>
-              <form action="{{ route('materis.files.destroy', $materi) }}" method="POST" onsubmit="return confirm('Hapus file terpilih?');">
-                @csrf
-                <div class="mb-2">
-                  <button type="submit" class="btn btn-sm btn-danger">Hapus Terpilih</button>
-                </div>
-                @foreach($files as $index => $file)
-                  @php $fileType = strtolower($file['type'] ?? ''); @endphp
-                  <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-2" style="background-color: #f8f9fa;">
-                    <div class="d-flex align-items-center gap-3">
-                      <input type="checkbox" name="indexes[]" value="{{ $index }}">
-                      <div>
-                        <div class="small fw-500">{{ $file['name'] ?? 'File' }}</div>
-                        <small class="text-muted">{{ strtoupper($fileType) }}</small>
-                      </div>
-                    </div>
-                    <div class="d-flex gap-2">
-                      <a href="{{ route('materis.file.preview', ['materi' => $materi->id, 'index' => $index]) }}" target="_blank" class="btn btn-sm btn-outline-primary">Preview</a>
-                      <a href="{{ route('materis.file.download', ['materi' => $materi->id, 'index' => $index]) }}" class="btn btn-sm btn-outline-secondary">Download</a>
-                      <form action="{{ route('materis.file.destroy', ['materi' => $materi->id, 'index' => $index]) }}" method="POST" onsubmit="return confirm('Hapus file ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
-                      </form>
+              <div class="mb-2">
+                <button type="submit" form="bulk-delete-files-form" class="btn btn-sm btn-danger">Hapus Terpilih</button>
+              </div>
+              @foreach($files as $index => $file)
+                @php $fileType = strtolower($file['type'] ?? ''); @endphp
+                <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-2" style="background-color: #f8f9fa;">
+                  <div class="d-flex align-items-center gap-3">
+                    <input type="checkbox" name="indexes[]" value="{{ $index }}" form="bulk-delete-files-form">
+                    <div>
+                      <div class="small fw-500">{{ $file['name'] ?? 'File' }}</div>
+                      <small class="text-muted">{{ strtoupper($fileType) }}</small>
                     </div>
                   </div>
-                @endforeach
-              </form>
+                  <div class="d-flex gap-2">
+                    <a href="{{ route('materis.file.preview', ['materi' => $materi->id, 'index' => $index]) }}" target="_blank" class="btn btn-sm btn-outline-primary">Preview</a>
+                    <a href="{{ route('materis.file.download', ['materi' => $materi->id, 'index' => $index]) }}" class="btn btn-sm btn-outline-secondary">Download</a>
+                    <button class="btn btn-sm btn-danger" type="submit" form="delete-file-{{ $index }}">Hapus</button>
+                  </div>
+                </div>
+              @endforeach
             </div>
           @endif
         </div>
@@ -104,5 +97,17 @@
         <a href="{{ route('materis.index') }}" class="btn btn-outline-secondary">Batal</a>
       </div>
     </form>
+
+    @if($files && is_array($files))
+      <form id="bulk-delete-files-form" action="{{ route('materis.files.destroy', $materi) }}" method="POST" onsubmit="return confirm('Hapus file terpilih?');">
+        @csrf
+      </form>
+      @foreach($files as $index => $file)
+        <form id="delete-file-{{ $index }}" action="{{ route('materis.file.destroy', ['materi' => $materi->id, 'index' => $index]) }}" method="POST" onsubmit="return confirm('Hapus file ini?');">
+          @csrf
+          @method('DELETE')
+        </form>
+      @endforeach
+    @endif
   </div>
 @endsection

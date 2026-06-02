@@ -39,4 +39,17 @@ class User extends Authenticatable
     {
         return $this->role === 'guru';
     }
+
+    public function getDisplayNameAttribute(): string
+    {
+        if ($this->isGuru()) {
+            return $this->nama ?: ($this->name ?: explode('@', $this->email)[0]);
+        }
+
+        if ($this->isAdmin()) {
+            return explode('@', $this->email)[0];
+        }
+
+        return $this->nama ?: ($this->name ?: explode('@', $this->email)[0]);
+    }
 }

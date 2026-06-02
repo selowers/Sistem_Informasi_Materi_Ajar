@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="adminHMD authentication page">
-  <title>Login | adminHMD</title>
+  <meta name="description" content="Ponpes Subulussalam authentication page">
+  <title>Login | Ponpes Subulussalam</title>
   <link rel="icon" type="image/jpeg" href="{{ asset('assets/logo/logo.jpg') }}">
   <link rel="apple-touch-icon" href="{{ asset('assets/logo/logo.jpg') }}">
 

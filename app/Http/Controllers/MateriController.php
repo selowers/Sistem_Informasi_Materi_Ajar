@@ -225,6 +225,6 @@ class MateriController extends Controller
             abort(404);
         }
 
-        return Storage::disk('public') ($file['path'], $file['name'] ?? basename($file['path']));
+        return Storage::disk('public')->download($file['path'], $file['name'] ?? basename($file['path']));
     }
 }
