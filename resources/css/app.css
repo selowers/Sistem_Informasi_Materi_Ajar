@@ -9,3 +9,49 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Completely hide pagination icons and decorations */
+.pagination .page-link::before,
+.pagination .page-link::after {
+    content: none !important;
+    display: none !important;
+}
+
+nav[role="navigation"] *::before,
+nav[role="navigation"] *::after {
+    content: none !important;
+    display: none !important;
+}
+
+nav svg,
+nav i,
+.pagination svg,
+.pagination i {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Clean pagination styling */
+.pagination {
+    gap: 0.25rem;
+}
+
+.page-link {
+    text-decoration: none;
+}
+
+/* Hide decorative elements and shapes */
+.panel::before,
+.panel::after,
+.table-responsive::before,
+.table-responsive::after {
+    display: none !important;
+}
+
+/* Hide all SVG in pagination area */
+nav + * svg,
+nav svg {
+    display: none !important;
+}
+
+

@@ -26,6 +26,10 @@ return new class extends Migration
                 $table->timestamp('reset_token_expiry')->nullable();   // Expiry Token Lupa Password
                 $table->timestamps();                                  // Tanggal Dibuat & Diupdate
             });
+        } elseif (!Schema::hasColumn('users', 'profile_photo')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('profile_photo', 255)->nullable()->after('email');
+            });
         }
     }
 

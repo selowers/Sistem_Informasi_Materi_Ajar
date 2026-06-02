@@ -15,7 +15,7 @@
   </div>
 
   <div class="panel mt-3">
-    <form action="{{ route('materis.update', $materi) }}" method="POST">
+    <form action="{{ route('materis.update', $materi) }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <div class="row g-3">
@@ -25,11 +25,43 @@
         </div>
         <div class="col-md-6">
           <label class="form-label">File Materi</label>
-          <input type="text" name="file_materi" class="form-control" value="{{ old('file_materi', $materi->file_materi) }}" required>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Tipe File</label>
-          <input type="text" name="tipe_file" class="form-control" value="{{ old('tipe_file', $materi->tipe_file) }}">
+          <input type="file" name="file_materi[]" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.bmp" multiple>
+          <small class="text-muted d-block mt-1">Tipe file: PDF, Word, Gambar (JPG, PNG, GIF, BMP). Bisa upload lebih dari 1 file. File lama akan tetap tersimpan. Maksimum 50 MB per file.</small>
+          @php
+            $files = json_decode($materi->file_materi, true);
+          @endphp
+          @if($files && is_array($files))
+            <div class="mt-3">
+              <label class="form-label">File yang Sudah Diupload:</label>
+              <form action="{{ route('materis.files.destroy', $materi) }}" method="POST" onsubmit="return confirm('Hapus file terpilih?');">
+                @csrf
+                <div class="mb-2">
+                  <button type="submit" class="btn btn-sm btn-danger">Hapus Terpilih</button>
+                </div>
+                @foreach($files as $index => $file)
+                  @php $fileType = strtolower($file['type'] ?? ''); @endphp
+                  <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-2" style="background-color: #f8f9fa;">
+                    <div class="d-flex align-items-center gap-3">
+                      <input type="checkbox" name="indexes[]" value="{{ $index }}">
+                      <div>
+                        <div class="small fw-500">{{ $file['name'] ?? 'File' }}</div>
+                        <small class="text-muted">{{ strtoupper($fileType) }}</small>
+                      </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <a href="{{ route('materis.file.preview', ['materi' => $materi->id, 'index' => $index]) }}" target="_blank" class="btn btn-sm btn-outline-primary">Preview</a>
+                      <a href="{{ route('materis.file.download', ['materi' => $materi->id, 'index' => $index]) }}" class="btn btn-sm btn-outline-secondary">Download</a>
+                      <form action="{{ route('materis.file.destroy', ['materi' => $materi->id, 'index' => $index]) }}" method="POST" onsubmit="return confirm('Hapus file ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                      </form>
+                    </div>
+                  </div>
+                @endforeach
+              </form>
+            </div>
+          @endif
         </div>
         <div class="col-md-6">
           <label class="form-label">Mata Pelajaran</label>
@@ -57,6 +89,10 @@
               <option value="{{ $guru->id }}" @selected(old('guru_id', $materi->guru_id) == $guru->id)>{{ $guru->nama_guru }}</option>
             @endforeach
           </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Materi Pertemuan</label>
+          <input type="text" name="materi_pertemuan" class="form-control" value="{{ old('materi_pertemuan', $materi->materi_pertemuan) }}" placeholder="Masukkan materi pertemuan">
         </div>
         <div class="col-12">
           <label class="form-label">Deskripsi</label>

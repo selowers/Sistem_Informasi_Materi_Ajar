@@ -25,7 +25,7 @@ return new class extends Migration
                       ->onDelete('restrict');
                 $table->foreignId('kelas_id')                          // Kelas (FK)
                       ->constrained('kelas')
-                      ->onDelete('restrict');
+                      ->onDelete('cascade');
                 $table->text('materi_disampaikan');                    // Materi yang Disampaikan
                 $table->unsignedInteger('jumlah_hadir')->default(0);   // Kehadiran Santri: jumlah hadir
                 $table->unsignedInteger('jumlah_tidak_hadir')->default(0); // Kehadiran Santri: tidak hadir

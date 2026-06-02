@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->string('nama_orang_tua', 100);              // Nama Orang Tua / Wali
                 $table->foreignId('kelas_id')                       // Kelas (FK)
                       ->constrained('kelas')
-                      ->onDelete('restrict');
+                      ->onDelete('cascade');
                 $table->timestamps();
             });
         }

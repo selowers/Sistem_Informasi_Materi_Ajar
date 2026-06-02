@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
     Route::resource('santris', SantriController::class);
     Route::resource('materis', MateriController::class);
+    Route::delete('materis/{materi}/file/{index}', [MateriController::class, 'destroyFile'])->name('materis.file.destroy');
+    Route::post('materis/{materi}/files/delete', [MateriController::class, 'destroyFiles'])->name('materis.files.destroy');
+    Route::get('materis/{materi}/file/{index}/preview', [MateriController::class, 'previewFile'])->name('materis.file.preview');
+    Route::get('materis/{materi}/file/{index}/download', [MateriController::class, 'downloadFile'])->name('materis.file.download');
     Route::resource('jurnal_pembelajarans', JurnalPembelajaranController::class);
     Route::resource('users', UserController::class)->except(['show']);
 });

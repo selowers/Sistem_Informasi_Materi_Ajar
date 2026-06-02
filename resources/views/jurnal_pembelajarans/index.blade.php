@@ -12,7 +12,11 @@
         <p class="text-muted mb-0">Kelola catatan pembelajaran harian guru.</p>
       </div>
     </div>
-    <div class="heading-actions"><a href="{{ route('jurnal_pembelajarans.create') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> Tambah Jurnal</a></div>
+    <div class="heading-actions">
+      <a href="{{ route('jurnal_pembelajarans.create') }}" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-lg"></i> Tambah Jurnal
+      </a>
+    </div>
   </div>
 
   <div class="panel mt-3">
@@ -30,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($jurnals as $jurnal)
+          @forelse($jurnals as $jurnal)
             <tr>
               <td>{{ $jurnal->tanggal_pembelajaran ? \Carbon\Carbon::parse($jurnal->tanggal_pembelajaran)->format('d M Y') : '-' }}</td>
               <td>{{ optional($jurnal->guru)->nama_guru }}</td>
@@ -40,23 +44,33 @@
               <td>{{ $jurnal->jumlah_hadir }} / {{ $jurnal->jumlah_tidak_hadir }}</td>
               <td class="text-end">
                 <a href="{{ route('jurnal_pembelajarans.show', $jurnal) }}" class="btn btn-sm btn-outline-primary me-1">Detail</a>
-              <a href="{{ route('jurnal_pembelajarans.edit', $jurnal) }}" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
-                <form action="{{ route('jurnal_pembelajarans.destroy', $jurnal) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Hapus jurnal ini?');">
+                <a href="{{ route('jurnal_pembelajarans.edit', $jurnal) }}" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
+                <form action="{{ route('jurnal_pembelajarans.destroy', $jurnal) }}" method="POST"
+                      class="d-inline-block" onsubmit="return confirm('Hapus jurnal ini?');">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-sm btn-danger">Hapus</button>
                 </form>
               </td>
             </tr>
-          @endforeach
-          @if($jurnals->isEmpty())
-            <tr><td colspan="7" class="text-center">Belum ada jurnal pembelajaran.</td></tr>
-          @endif
+          @empty
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">Belum ada jurnal pembelajaran.</td>
+            </tr>
+          @endforelse
         </tbody>
       </table>
     </div>
-    <div class="mt-3">
-      {{ $jurnals->withQueryString()->links() }}
-    </div>
+
+    {{-- Pagination --}}
+    @if($jurnals->hasPages())
+      <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top flex-wrap gap-2">
+        <small class="text-muted">
+          Menampilkan {{ $jurnals->firstItem() }}–{{ $jurnals->lastItem() }}
+          dari {{ $jurnals->total() }} data
+        </small>
+        {{ $jurnals->withQueryString()->links() }}
+      </div>
+    @endif
   </div>
 @endsection

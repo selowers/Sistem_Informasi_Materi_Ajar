@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[\Illuminate\Database\Eloquent\Attributes\Fillable(['judul_materi','mata_pelajaran_id','kelas_id','guru_id','file_materi','tipe_file','deskripsi'])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['judul_materi','mata_pelajaran_id','kelas_id','guru_id','materi_pertemuan','file_materi','deskripsi'])]
 class Materi extends Model
 {
     use HasFactory;

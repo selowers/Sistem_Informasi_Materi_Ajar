@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Dashboard') | adminHMD</title>
+  <link rel="icon" type="image/jpeg" href="{{ asset('assets/logo/logo.jpg') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/logo/logo.jpg') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -13,11 +15,12 @@
     <div class="sidebar-backdrop" data-sidebar-close></div>
     <aside class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
       <div class="sidebar-header">
-        <a class="brand-mark" href="{{ route('dashboard') }}" aria-label="adminHMD dashboard">
-          <span class="brand-icon"><i class="bi bi-grid-1x2-fill" aria-hidden="true"></i></span>
+        <a class="brand-mark" href="{{ route('dashboard') }}" aria-label="admin dashboard">
+          <span class="brand-icon">
+            <img src="{{ asset('assets/logo/logo.jpg') }}" alt="Logo" style="width:32px;height:32px;object-fit:contain;display:block;" />
+          </span>
           <span class="brand-copy">
             <span class="brand-title">adminHMD</span>
-            <span class="brand-subtitle">Admin Template</span>
           </span>
         </a>
       </div>
@@ -82,23 +85,10 @@
             <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">
               <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i>
             </button>
-            <div class="dropdown">
-              <button class="profile-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img class="avatar-img avatar-sm" src="{{ asset('assets/images/avatar/avatar.jpg') }}" alt="{{ auth()->check() ? auth()->user()->nama : 'Admin' }}">
-                <span class="profile-name d-none d-sm-inline">{{ auth()->check() ? auth()->user()->nama : 'Admin' }}</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Account settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                  <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="dropdown-item">Sign out</button>
-                  </form>
-                </li>
-              </ul>
-            </div>
+            <form method="POST" action="{{ route('logout') }}" class="ms-2">
+              @csrf
+              <button type="submit" class="btn btn-outline-secondary btn-sm" aria-label="Sign out">Sign out</button>
+            </form>
           </div>
         </div>
       </nav>
@@ -123,8 +113,6 @@
 
       <footer class="admin-footer">
         <div class="container-fluid px-3 px-lg-4">
-          <span>Copyright 2026 adminHMD. <br> Developed by <a target="_blank" class="fw-bold text-success" href="https://github.com/HasanMahmudDev">Md. Hasan Mahmud</a> • Distributed by <a target="_blank" class="fw-bold text-success" href="https://themewagon.com">ThemeWagon</a> </span>
-          <span>Professional dashboard template.</span>
         </div>
       </footer>
     </div>

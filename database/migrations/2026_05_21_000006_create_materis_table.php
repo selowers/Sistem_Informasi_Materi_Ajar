@@ -26,8 +26,8 @@ return new class extends Migration
                 $table->foreignId('guru_id')                           // Guru Pengampu (FK)
                       ->constrained('gurus')
                       ->onDelete('cascade');
-                $table->string('file_materi', 255);                    // Path File Materi (PDF/DOC/PPT)
-                $table->string('tipe_file', 10)->nullable();           // Ekstensi: pdf, doc, ppt, dll
+                $table->string('materi_pertemuan', 100)->nullable();  // Materi Pertemuan
+                $table->json('file_materi');                           // Multiple Files Materi (JSON: name, path, type)
                 $table->text('deskripsi')->nullable();                 // Deskripsi tambahan (opsional)
                 $table->timestamps();
             });

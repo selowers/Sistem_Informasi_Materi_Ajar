@@ -20,8 +20,11 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'adminpondok@gmail.com'],
             [
+                'nama' => 'Admin Pondok',
                 'name' => 'Admin Pondok',
                 'password' => bcrypt('password'),
+                'role' => 'admin',
+                'status' => 'aktif',
             ]
         );
     }
