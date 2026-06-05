@@ -49,7 +49,7 @@
           <span class="nav-icon"><i class="bi bi-journal" aria-hidden="true"></i></span>
           <span class="nav-text">Mengelola Jurnal Pembelajaran</span>
         </a>
-        @if(auth()->check() && auth()->user()->isAdmin())
+        @if(Auth::check() && Auth::user()->isAdmin())
           <a class="nav-link @if(request()->routeIs('users.*')) active @endif" href="{{ route('users.index') }}">
             <span class="nav-icon"><i class="bi bi-people-fill" aria-hidden="true"></i></span>
             <span class="nav-text">Mengelola Akun Pengguna</span>

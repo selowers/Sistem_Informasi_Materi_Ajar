@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="heading-actions">
-      @if(auth()->user()->isAdmin())
+      @if(Auth::user()->isAdmin())
         <a href="{{ route('gurus.create') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> Tambah Guru</a>
       @endif
     </div>

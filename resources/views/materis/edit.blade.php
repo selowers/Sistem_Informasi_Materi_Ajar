@@ -76,12 +76,17 @@
         </div>
         <div class="col-md-6">
           <label class="form-label">Guru Pengampu</label>
-          <select name="guru_id" class="form-select" required>
-            <option value="">Pilih guru</option>
-            @foreach($gurus as $guru)
-              <option value="{{ $guru->id }}" @selected(old('guru_id', $materi->guru_id) == $guru->id)>{{ $guru->nama_guru }}</option>
-            @endforeach
-          </select>
+          @if(isset($currentGuru) && $currentGuru)
+            <input type="text" class="form-control" value="{{ $currentGuru->nama_guru }}" readonly>
+            <input type="hidden" name="guru_id" value="{{ $currentGuru->id }}">
+          @else
+            <select name="guru_id" class="form-select" required>
+              <option value="">Pilih guru</option>
+              @foreach($gurus as $guru)
+                <option value="{{ $guru->id }}" @selected(old('guru_id', $materi->guru_id) == $guru->id)>{{ $guru->nama_guru }}</option>
+              @endforeach
+            </select>
+          @endif
         </div>
         <div class="col-md-6">
           <label class="form-label">Materi Pertemuan</label>

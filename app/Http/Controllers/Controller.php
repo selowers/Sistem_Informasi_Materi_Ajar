@@ -6,7 +6,7 @@ abstract class Controller
 {
     protected function ensureAdminOnly()
     {
-        $user = auth()->user();
+        $user = \Illuminate\Support\Facades\Auth::user();
         if ($user instanceof \App\Models\User && $user->isGuru()) {
             abort(403);
         }

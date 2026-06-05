@@ -14,7 +14,7 @@
     </div>
     <div class="heading-actions">
       <a href="{{ route('gurus.index') }}" class="btn btn-outline-secondary btn-sm">Kembali</a>
-      @if(auth()->user()->isAdmin())
+      @if(Auth::user()->isAdmin())
         <a href="{{ route('gurus.edit', $guru) }}" class="btn btn-primary btn-sm">Edit</a>
       @endif
     </div>

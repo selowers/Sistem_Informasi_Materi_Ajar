@@ -17,6 +17,23 @@
   <div class="panel mt-3">
     <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
+      @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+      @endif
+      @if(isset($guruNotLinked) && $guruNotLinked)
+        <div class="alert alert-warning">
+          Akun guru Anda belum terhubung dengan data profil guru. Silakan pilih nama guru Anda sendiri, atau minta admin untuk menghubungkan akun Anda.
+        </div>
+      @endif
+      @if($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label">Judul Materi</label>

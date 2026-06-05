@@ -8,7 +8,7 @@
       <span class="page-icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
       <div>
         <p class="eyebrow mb-1">Selamat datang</p>
-        <h1 class="h3 mb-1">{{ auth()->user()->display_name }}</h1>
+        <h1 class="h3 mb-1">{{ Auth::user()->display_name }}</h1>
         <p class="text-muted mb-0">Lihat data dan kelola materi serta jurnal pembelajaran.</p>
       </div>
     </div>

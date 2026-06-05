@@ -30,6 +30,31 @@ class User extends Authenticatable
         return $this->hasOne(Guru::class);
     }
 
+    public function getGuruAttribute()
+    {
+        if ($this->relationLoaded('guru')) {
+            $guru = $this->getRelation('guru');
+        } else {
+            $guru = $this->hasOne(Guru::class)->first();
+        }
+
+        if (!$guru) {
+            $name = $this->nama ?: $this->name;
+            if ($name) {
+                $guru = Guru::where('nama_guru', $name)->first();
+                if ($guru) {
+                    if (!$guru->user_id) {
+                        $guru->user_id = $this->id;
+                        $guru->save();
+                    }
+                    $this->setRelation('guru', $guru);
+                }
+            }
+        }
+
+        return $guru;
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

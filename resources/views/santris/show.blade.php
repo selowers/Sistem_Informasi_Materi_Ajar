@@ -14,7 +14,7 @@
     </div>
     <div class="heading-actions">
       <a href="{{ route('santris.index') }}" class="btn btn-outline-secondary btn-sm">Kembali</a>
-      @if(auth()->user()->isAdmin())
+      @if(Auth::user()->isAdmin())
         <a href="{{ route('santris.edit', $santri) }}" class="btn btn-primary btn-sm">Edit</a>
       @endif
     </div>
