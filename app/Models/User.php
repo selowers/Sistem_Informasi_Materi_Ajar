@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->role === 'guru';
     }
 
+    public function isActive(): bool
+    {
+        return $this->status === 'aktif';
+    }
+
     public function getDisplayNameAttribute(): string
     {
         if ($this->isGuru()) {
